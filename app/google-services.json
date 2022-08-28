@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "732588518",
+    "project_id": "notebook-35248",
+    "storage_bucket": "notebook-35248.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:732588518:android:2170aab2008d2b30d98e27",
+        "android_client_info": {
+          "package_name": "com.example.notebook"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "732588518-br2tg1d3uh3t81eqcg487c6r5uq5qnu2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBQC9TsOqRa7fEo-zaZ-h6g9cr0tk_rOnk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "732588518-br2tg1d3uh3t81eqcg487c6r5uq5qnu2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:732588518:android:c6999e198735dbccd98e27",
+        "android_client_info": {
+          "package_name": "com.shubham.notebook"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "732588518-br2tg1d3uh3t81eqcg487c6r5uq5qnu2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBQC9TsOqRa7fEo-zaZ-h6g9cr0tk_rOnk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "732588518-br2tg1d3uh3t81eqcg487c6r5uq5qnu2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
