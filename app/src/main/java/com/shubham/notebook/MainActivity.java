@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
             public boolean onMenuItemClick(MenuItem menuItem) {
                 if (menuItem.getTitle()=="Logout"){
                     FirebaseAuth.getInstance().signOut();
-                    startActivity(new Intent(MainActivity.this,LoginActivity.class));
+                    startActivity(new Intent(MainActivity.this,EnterMobileNumber.class));
                     finish();
                     return true;
                 }

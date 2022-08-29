@@ -7,41 +7,20 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:732588518:android:2170aab2008d2b30d98e27",
-        "android_client_info": {
-          "package_name": "com.example.notebook"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "732588518-br2tg1d3uh3t81eqcg487c6r5uq5qnu2.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyBQC9TsOqRa7fEo-zaZ-h6g9cr0tk_rOnk"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "732588518-br2tg1d3uh3t81eqcg487c6r5uq5qnu2.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
         "mobilesdk_app_id": "1:732588518:android:c6999e198735dbccd98e27",
         "android_client_info": {
           "package_name": "com.shubham.notebook"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "732588518-eo0eculcpf71ks703b9jj9jm7lvivhfp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.shubham.notebook",
+            "certificate_hash": "b66d53acbe9f502d1ca28e65a28fde1a2d0f1c77"
+          }
+        },
         {
           "client_id": "732588518-br2tg1d3uh3t81eqcg487c6r5uq5qnu2.apps.googleusercontent.com",
           "client_type": 3

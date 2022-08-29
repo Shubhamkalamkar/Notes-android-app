@@ -14,19 +14,25 @@
         android:theme="@style/Theme.NoteBook"
         tools:targetApi="31">
         <activity
-            android:name="com.shubham.notebook.NoteDetailsActivity"
+            android:name=".VerifyOtp"
             android:exported="false" />
         <activity
-            android:name="com.shubham.notebook.LoginActivity"
+            android:name=".EnterMobileNumber"
             android:exported="false" />
         <activity
-            android:name="com.shubham.notebook.CreateAccountActivity"
+            android:name=".NoteDetailsActivity"
             android:exported="false" />
         <activity
-            android:name="com.shubham.notebook.MainActivity"
+            android:name=".LoginActivity"
             android:exported="false" />
         <activity
-            android:name="com.shubham.notebook.SplashActivity"
+            android:name=".CreateAccountActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
