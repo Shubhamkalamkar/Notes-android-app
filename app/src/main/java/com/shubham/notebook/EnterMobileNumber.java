@@ -19,7 +19,7 @@ import java.util.concurrent.TimeUnit;
 
 public class EnterMobileNumber extends AppCompatActivity {
 
-    EditText enterNumber;
+    EditText enterNumber,countryCode;
     Button getOtpButton, loginLinkBtn;
     ProgressBar enterMobileProgressBar;
 
@@ -28,6 +28,7 @@ public class EnterMobileNumber extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_enter_mobile_number);
 
+        countryCode = findViewById(R.id.country_code);
         enterNumber = findViewById(R.id.mobile_number);
         getOtpButton = findViewById(R.id.enter_mobile_btn);
         enterMobileProgressBar = findViewById(R.id.progress_bar_sending_otp);
@@ -45,54 +46,58 @@ public class EnterMobileNumber extends AppCompatActivity {
         getOtpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!enterNumber.getText().toString().trim().isEmpty()) {
-                    if ((enterNumber.getText().toString().trim()).length() == 10) {
+                if (!countryCode.getText().toString().trim().isEmpty()){
+                    if (!enterNumber.getText().toString().trim().isEmpty()) {
+                        if ((enterNumber.getText().toString().trim()).length() == 10) {
 
-                        enterMobileProgressBar.setVisibility(View.VISIBLE);
-                        getOtpButton.setVisibility(View.INVISIBLE);
+                            enterMobileProgressBar.setVisibility(View.VISIBLE);
+                            getOtpButton.setVisibility(View.INVISIBLE);
 
 
-                        PhoneAuthProvider.getInstance().verifyPhoneNumber(
-                                "+91" + enterNumber.getText().toString(),
-                                60,
-                                TimeUnit.SECONDS,
-                                EnterMobileNumber.this,
-                                new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
-                                    @Override
-                                    public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
-                                        enterMobileProgressBar.setVisibility(View.GONE);
-                                        getOtpButton.setVisibility(View.VISIBLE);
+                            PhoneAuthProvider.getInstance().verifyPhoneNumber(
+                                    "+" + countryCode.getText().toString() + enterNumber.getText().toString(),
+                                    60,
+                                    TimeUnit.SECONDS,
+                                    EnterMobileNumber.this,
+                                    new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+                                        @Override
+                                        public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
+                                            enterMobileProgressBar.setVisibility(View.GONE);
+                                            getOtpButton.setVisibility(View.VISIBLE);
+                                        }
+
+                                        @Override
+                                        public void onVerificationFailed(@NonNull FirebaseException e) {
+                                            enterMobileProgressBar.setVisibility(View.GONE);
+                                            getOtpButton.setVisibility(View.VISIBLE);
+                                            utility.showToast(EnterMobileNumber.this, e.getMessage());
+                                        }
+
+                                        @Override
+                                        public void onCodeSent(@NonNull String backendotp, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
+                                            super.onCodeSent(backendotp, forceResendingToken);
+                                            enterMobileProgressBar.setVisibility(View.GONE);
+                                            getOtpButton.setVisibility(View.VISIBLE);
+                                            Intent intent = new Intent(getApplicationContext(), VerifyOtp.class);
+                                            intent.putExtra("mobile", enterNumber.getText().toString());
+                                            intent.putExtra("backendotp", backendotp);
+                                            startActivity(intent);
+                                        }
                                     }
-
-                                    @Override
-                                    public void onVerificationFailed(@NonNull FirebaseException e) {
-                                        enterMobileProgressBar.setVisibility(View.GONE);
-                                        getOtpButton.setVisibility(View.VISIBLE);
-                                        utility.showToast(EnterMobileNumber.this, e.getMessage());
-                                    }
-
-                                    @Override
-                                    public void onCodeSent(@NonNull String backendotp, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
-                                        super.onCodeSent(backendotp, forceResendingToken);
-                                        enterMobileProgressBar.setVisibility(View.GONE);
-                                        getOtpButton.setVisibility(View.VISIBLE);
-                                        Intent intent = new Intent(getApplicationContext(), VerifyOtp.class);
-                                        intent.putExtra("mobile", enterNumber.getText().toString());
-                                        intent.putExtra("backendotp", backendotp);
-                                        startActivity(intent);
-                                    }
-                                }
-                        );
+                            );
 
 //                        Intent intent = new Intent(getApplicationContext(),VerifyOtp.class);
 //                        intent.putExtra("mobile",enterNumber.getText().toString());
 //                        startActivity(intent);
-                    } else {
-                        utility.showToast(EnterMobileNumber.this, "Enter correct mobile number");
-                    }
+                        } else {
+                            utility.showToast(EnterMobileNumber.this, "Enter correct mobile number");
+                        }
 
-                } else {
-                    utility.showToast(EnterMobileNumber.this, "Enter mobile number");
+                    } else {
+                        utility.showToast(EnterMobileNumber.this, "Enter mobile number");
+                    }
+            } else {
+                    utility.showToast(EnterMobileNumber.this,"Enter country code");
                 }
             }
         });
