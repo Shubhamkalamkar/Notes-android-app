@@ -63,7 +63,7 @@ public class CreateAccountActivity extends AppCompatActivity {
                 changeInProgress(false);
                 if (task.isSuccessful()){
                     //account created
-                    utility.showToast(CreateAccountActivity.this,"Succesful, check email");
+                    utility.showToast(CreateAccountActivity.this,"Succesful, check your email and verify email");
                     firebaseAuth.getCurrentUser().sendEmailVerification();
                     firebaseAuth.signOut();
                     finish();

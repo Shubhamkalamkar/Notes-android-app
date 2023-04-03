@@ -84,6 +84,7 @@ public class VerifyOtp extends AppCompatActivity {
                                     // finish activity like finish()
                                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                     startActivity(intent);
+                                    finish();
                                 }else {
                                     utility.showToast(VerifyOtp.this,"Enter Correct OTP");
                                 }

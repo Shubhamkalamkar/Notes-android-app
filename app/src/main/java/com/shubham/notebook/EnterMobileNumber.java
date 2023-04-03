@@ -20,7 +20,8 @@ import java.util.concurrent.TimeUnit;
 public class EnterMobileNumber extends AppCompatActivity {
 
     EditText enterNumber,countryCode;
-    Button getOtpButton, loginLinkBtn;
+    Button getOtpButton;
+//    Button loginLinkBtn;
     ProgressBar enterMobileProgressBar;
 
     @Override
@@ -32,16 +33,17 @@ public class EnterMobileNumber extends AppCompatActivity {
         enterNumber = findViewById(R.id.mobile_number);
         getOtpButton = findViewById(R.id.enter_mobile_btn);
         enterMobileProgressBar = findViewById(R.id.progress_bar_sending_otp);
-        loginLinkBtn = findViewById(R.id.login_link_btn);
+//        loginLinkBtn = findViewById(R.id.login_link_btn);
 
 
-        loginLinkBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
-                startActivity(intent);
-            }
-        });
+//        loginLinkBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
+//                startActivity(intent);
+//                finish();
+//            }
+//        });
 
         getOtpButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,6 +84,7 @@ public class EnterMobileNumber extends AppCompatActivity {
                                             intent.putExtra("mobile", enterNumber.getText().toString());
                                             intent.putExtra("backendotp", backendotp);
                                             startActivity(intent);
+                                            finish();
                                         }
                                     }
                             );

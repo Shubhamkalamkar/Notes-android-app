@@ -17,6 +17,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.Objects;
+
 public class LoginActivity extends AppCompatActivity {
 
     EditText emailEditText, passwordEditText;
@@ -54,25 +56,32 @@ public class LoginActivity extends AppCompatActivity {
     void loginAccountInFirebase(String email, String password){
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         changeInProgress(true);
-        firebaseAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                changeInProgress(false);
-                if (task.isSuccessful()){
-                    //login success
-                    // if (firebaseAuth.getCurrentUser().isEmailVerified()){
-                        //go main activity
-                        startActivity(new Intent(LoginActivity.this,MainActivity.class));
-                        finish();
-                    // }else {
-                    //     utility.showToast(LoginActivity.this,"Email not verified Please verify email");
-                    // }
-                }else {
-                    //login Failed
-                    utility.showToast(LoginActivity.this,task.getException().getLocalizedMessage());
-                }
-            }
-        });
+        try {
+
+                firebaseAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        changeInProgress(false);
+                        if (task.isSuccessful()){
+                            //login success
+                            if (firebaseAuth.getCurrentUser().isEmailVerified()){
+                            //go main activity
+                            startActivity(new Intent(LoginActivity.this,MainActivity.class));
+                            finish();
+                            }else {
+                                utility.showToast(LoginActivity.this,"Email not verified Please verify email view spam folder");
+                            }
+                        }else {
+                            //login Failed
+                            utility.showToast(LoginActivity.this,task.getException().getLocalizedMessage());
+                        }
+                    }
+                });
+
+        }catch (Exception e){
+            utility.showToast(LoginActivity.this,"error");
+        }
+
     }
 
     void changeInProgress(boolean inProgress){

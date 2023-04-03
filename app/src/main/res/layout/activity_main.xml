@@ -19,13 +19,13 @@
         android:id="@+id/title_bar_layout">
 
         <TextView
+            android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/title"
             android:text="Notes"
-            android:textSize="32sp"
             android:textColor="@color/white"
-            android:textStyle="bold"/>
+            android:textSize="32sp"
+            android:textStyle="bold" />
 
         <ImageView
             android:id="@+id/menu_btn"
