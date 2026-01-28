@@ -47,7 +47,7 @@ public class VerifyOtp extends AppCompatActivity {
         input_otp6 = findViewById(R.id.input_otp6);
 
         showNumber.setText(String.format(
-                "+91-%s",getIntent().getStringExtra("mobile")
+                getIntent().getStringExtra("mobile")
         ));
 
         getOtpBackend = getIntent().getStringExtra("backendotp");

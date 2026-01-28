@@ -69,44 +69,50 @@
             android:padding="5dp"
             >
 
-            <TextView
+            <com.hbb20.CountryCodePicker
                 android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:background="@null"
-                android:gravity="center"
-                android:text="+"
-                android:textColor="@color/black"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
+                android:layout_height="wrap_content"
                 android:id="@+id/country_code"
-                android:background="@null"
-                android:hint="91"
-                android:maxLength="3"
-                android:imeOptions="actionNext"
-                android:importantForAutofill="no"
-                android:inputType="number"
-                android:textColor="@color/black"
-                android:textSize="16sp"
-                android:textStyle="bold"
+                app:ccp_showFlag="false"
+                app:ccp_showNameCode="false"
                 />
+
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="40dp"-->
+<!--                android:background="@null"-->
+<!--                android:gravity="center"-->
+<!--                android:text="+"-->
+<!--                android:textColor="@color/black"-->
+<!--                android:textSize="16sp"-->
+<!--                android:textStyle="bold" />-->
+
+<!--            <EditText-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="40dp"-->
+<!--                android:id="@+id/country_code"-->
+<!--                android:background="@null"-->
+<!--                android:hint="91"-->
+<!--                android:maxLength="3"-->
+<!--                android:imeOptions="actionNext"-->
+<!--                android:importantForAutofill="no"-->
+<!--                android:inputType="number"-->
+<!--                android:textColor="@color/black"-->
+<!--                android:textSize="16sp"-->
+<!--                android:textStyle="bold"-->
+<!--                />-->
             <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
                 android:id="@+id/mobile_number"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
                 android:background="@null"
-                android:hint="9876543210"
-                android:maxLength="10"
+                android:hint="Enter mobile number"
                 android:imeOptions="actionDone"
                 android:importantForAutofill="no"
                 android:inputType="number"
                 android:textColor="@color/black"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                />
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
         </LinearLayout>
 

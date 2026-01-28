@@ -9,17 +9,20 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.hbb20.CountryCodePicker;
 
 import java.util.concurrent.TimeUnit;
 
 public class EnterMobileNumber extends AppCompatActivity {
 
-    EditText enterNumber,countryCode;
+    EditText enterNumber;
+    CountryCodePicker countryCode;
     Button getOtpButton;
 //    Button loginLinkBtn;
     ProgressBar enterMobileProgressBar;
@@ -33,6 +36,8 @@ public class EnterMobileNumber extends AppCompatActivity {
         enterNumber = findViewById(R.id.mobile_number);
         getOtpButton = findViewById(R.id.enter_mobile_btn);
         enterMobileProgressBar = findViewById(R.id.progress_bar_sending_otp);
+
+        countryCode.registerCarrierNumberEditText(enterNumber);
 //        loginLinkBtn = findViewById(R.id.login_link_btn);
 
 
@@ -48,60 +53,68 @@ public class EnterMobileNumber extends AppCompatActivity {
         getOtpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!countryCode.getText().toString().trim().isEmpty()){
+
                     if (!enterNumber.getText().toString().trim().isEmpty()) {
-                        if ((enterNumber.getText().toString().trim()).length() == 10) {
+//                        (enterNumber.getText().toString().trim()).length() == 10
 
-                            enterMobileProgressBar.setVisibility(View.VISIBLE);
-                            getOtpButton.setVisibility(View.INVISIBLE);
+                        countryCode.setPhoneNumberValidityChangeListener(new CountryCodePicker.PhoneNumberValidityChangeListener() {
+                            @Override
+                            public void onValidityChanged(boolean isValidNumber) {
+                                // your code
+                                enterMobileProgressBar.setVisibility(View.VISIBLE);
+                                getOtpButton.setVisibility(View.INVISIBLE);
 
 
-                            PhoneAuthProvider.getInstance().verifyPhoneNumber(
-                                    "+" + countryCode.getText().toString() + enterNumber.getText().toString(),
-                                    60,
-                                    TimeUnit.SECONDS,
-                                    EnterMobileNumber.this,
-                                    new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
-                                        @Override
-                                        public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
-                                            enterMobileProgressBar.setVisibility(View.GONE);
-                                            getOtpButton.setVisibility(View.VISIBLE);
+                                PhoneAuthProvider.getInstance().verifyPhoneNumber(
+                                        countryCode.getFullNumberWithPlus().toString(),
+                                        60,
+                                        TimeUnit.SECONDS,
+                                        EnterMobileNumber.this,
+                                        new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+                                            @Override
+                                            public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
+                                                enterMobileProgressBar.setVisibility(View.GONE);
+                                                getOtpButton.setVisibility(View.VISIBLE);
+                                            }
+
+                                            @Override
+                                            public void onVerificationFailed(@NonNull FirebaseException e) {
+                                                enterMobileProgressBar.setVisibility(View.GONE);
+                                                getOtpButton.setVisibility(View.VISIBLE);
+//                                                utility.showToast(EnterMobileNumber.this, e.getLocalizedMessage());
+                                                Toast.makeText(EnterMobileNumber.this, e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                                            }
+
+                                            @Override
+                                            public void onCodeSent(@NonNull String backendotp, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
+                                                super.onCodeSent(backendotp, forceResendingToken);
+                                                enterMobileProgressBar.setVisibility(View.GONE);
+                                                getOtpButton.setVisibility(View.VISIBLE);
+                                                Intent intent = new Intent(getApplicationContext(), VerifyOtp.class);
+                                                intent.putExtra("mobile", countryCode.getFullNumberWithPlus().toString());
+                                                intent.putExtra("backendotp", backendotp);
+                                                startActivity(intent);
+                                                finish();
+                                            }
                                         }
+                                );
+                            }
+                        });
+//                        if (!countryCode.isValidFullNumber()) {
 
-                                        @Override
-                                        public void onVerificationFailed(@NonNull FirebaseException e) {
-                                            enterMobileProgressBar.setVisibility(View.GONE);
-                                            getOtpButton.setVisibility(View.VISIBLE);
-                                            utility.showToast(EnterMobileNumber.this, e.getMessage());
-                                        }
 
-                                        @Override
-                                        public void onCodeSent(@NonNull String backendotp, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
-                                            super.onCodeSent(backendotp, forceResendingToken);
-                                            enterMobileProgressBar.setVisibility(View.GONE);
-                                            getOtpButton.setVisibility(View.VISIBLE);
-                                            Intent intent = new Intent(getApplicationContext(), VerifyOtp.class);
-                                            intent.putExtra("mobile", enterNumber.getText().toString());
-                                            intent.putExtra("backendotp", backendotp);
-                                            startActivity(intent);
-                                            finish();
-                                        }
-                                    }
-                            );
 
 //                        Intent intent = new Intent(getApplicationContext(),VerifyOtp.class);
 //                        intent.putExtra("mobile",enterNumber.getText().toString());
 //                        startActivity(intent);
-                        } else {
-                            utility.showToast(EnterMobileNumber.this, "Enter correct mobile number");
-                        }
+//                        } else {
+//                            utility.showToast(EnterMobileNumber.this, "Enter Valid mobile number");
+//                        }
 
                     } else {
                         utility.showToast(EnterMobileNumber.this, "Enter mobile number");
                     }
-            } else {
-                    utility.showToast(EnterMobileNumber.this,"Enter country code");
-                }
+
             }
         });
     }
