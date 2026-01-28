@@ -28,12 +28,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-           //
-//        Toolbar toolbar = findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
-           //
-
-
         addNoteBtn = findViewById(R.id.add_note_btn);
         recyclerView = findViewById(R.id.recycler_view);
         menuBtn = findViewById(R.id.menu_btn);
@@ -44,37 +38,16 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    //
-
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.toolbar_menu, menu);
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-//        switch (item.getItemId()){
-//            case
-//                    R.id.logout_btn:
-//                break;
-//        }
-//        return true;
-//    }
-
-    //
-
     void showMenu(){
-        //TODO display menu
         PopupMenu popupMenu = new PopupMenu(MainActivity.this,menuBtn);
         popupMenu.getMenu().add("Logout");
         popupMenu.show();
         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
-                if (menuItem.getTitle()=="Logout"){
+                if (menuItem.getTitle().equals("Logout")){
                     FirebaseAuth.getInstance().signOut();
-                    startActivity(new Intent(MainActivity.this,EnterMobileNumber.class));
+                    startActivity(new Intent(MainActivity.this,LoginActivity.class));
                     finish();
                     return true;
                 }
